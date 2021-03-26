@@ -27,6 +27,7 @@ module CmdStan
   , summaryCsvParser
   -- * diagnose
   , diagnose
+  , diagnoseCSD
   , stansummaryConfigToCmdLine
   , toStanExeCmdLine
   , makeConfigToCmdLine
@@ -153,6 +154,12 @@ stansummary config = do
 
 diagnose :: [FilePath] -> IO ()
 diagnose sampleFilePaths = throwWhenExitFailure =<< system ("diagnose " <> unwords sampleFilePaths)
+
+diagnoseCSD :: [FilePath] -> IO ()
+diagnoseCSD sampleFilePaths = do
+  cmdStanDir <- maybe (throwIO $ userError "CMDSTAN_DIR not defined") pure =<<
+    lookupEnv "CMDSTAN_DIR"
+  throwWhenExitFailure =<< system (cmdStanDir <> "/bin/diagnose " <> unwords sampleFilePaths)
 
 methodToCmdLine :: Method -> String
 methodToCmdLine = \case
