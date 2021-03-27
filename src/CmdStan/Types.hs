@@ -129,6 +129,7 @@ data StanExeConfig = StanExeConfig
   , numSamples      :: Maybe Int
   , numWarmup       :: Maybe Int
   , adaptDelta      :: Maybe Double
+  , maxTreeDepth    :: Maybe Int
   , algorithm       :: Maybe String
   , diagnosticFile  :: Maybe FilePath
   } deriving (Show, Eq, Ord, Generic)

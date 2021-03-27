@@ -187,6 +187,7 @@ blankOptimizeConfig = StanExeConfig
   , numSamples      = Nothing
   , numWarmup       = Nothing
   , adaptDelta      = Nothing
+  , maxTreeDepth    = Nothing
   , algorithm       = Nothing
   , diagnosticFile  = Nothing
   }
@@ -203,6 +204,7 @@ blankSampleConfig = StanExeConfig
   , numSamples      = Nothing
   , numWarmup       = Nothing
   , adaptDelta      = Nothing
+  , maxTreeDepth    = Nothing
   , algorithm       = Nothing
   , diagnosticFile  = Nothing
   }
@@ -218,6 +220,7 @@ makeDefaultSample rootPath chainIndex = StanExeConfig
   , numSamples      = Nothing
   , numWarmup       = Nothing
   , adaptDelta      = Nothing
+  , maxTreeDepth    = Nothing
   , processId       = Just chainIndex
   , algorithm       = Nothing
   , diagnosticFile  = Nothing
@@ -230,6 +233,7 @@ toStanExeCmdLine StanExeConfig {..} = unwords
   , maybe "" (\x -> "num_samples=" <> show x) numSamples
   , maybe "" (\x -> "num_warmup=" <> show x) numWarmup
   , maybe "" (\x -> "adapt delta=" <> show x) adaptDelta
+  , maybe "" (\x -> "algorithm=hmc engine=nuts max_depth=" <> show x) maxTreeDepth
   , maybe "" ("data file=" <>) inputData
   , maybe "" ("output file=" <>) output
   , maybe "" ("diagnostic_file=" <>) diagnosticFile
